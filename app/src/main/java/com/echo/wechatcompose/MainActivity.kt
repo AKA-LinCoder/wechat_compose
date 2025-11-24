@@ -5,20 +5,16 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.annotation.DrawableRes
-import androidx.collection.mutableIntSetOf
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.echo.wechatcompose.ui.theme.ChatList
+import com.echo.wechatcompose.ui.ChatList
 
-import com.echo.wechatcompose.ui.theme.WeNavigationBar
+import com.echo.wechatcompose.ui.WeNavigationBar
 
 
 class MainActivity : ComponentActivity() {
