@@ -19,6 +19,9 @@ import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.echo.wechatcompose.ui.ChatList
+import com.echo.wechatcompose.ui.ContactList
+import com.echo.wechatcompose.ui.DiscoveryList
+import com.echo.wechatcompose.ui.MeList
 
 import com.echo.wechatcompose.ui.WeNavigationBar
 import com.echo.wechatcompose.ui.theme.WeComposeTheme
@@ -56,9 +59,9 @@ class MainActivity : ComponentActivity() {
                             page ->
                         when(page) {
                             0 -> ChatList(viewModel.chats)
-                            1 -> Box(Modifier.fillMaxSize())
-                            2 -> Box(Modifier.fillMaxSize())
-                            3 -> Box(Modifier.fillMaxSize())
+                            1 -> ContactList(viewModel.contacts)
+                            2 -> DiscoveryList()
+                            3 -> MeList()
                         }
 
                     }
