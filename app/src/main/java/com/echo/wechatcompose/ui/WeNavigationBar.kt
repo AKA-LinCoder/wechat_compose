@@ -68,22 +68,6 @@ fun WeNavigationBar(selected: Int, onSelected: (Int) -> Unit) {
 }
 
 
-//fun WeNavigationBar(selected: Int, onSelected: (Int) -> Unit) {
-//    Row(Modifier.background(WeComposeTheme.colors.bottomBar).navigationBarsPadding()) {
-//        TabItem(if (selected == 0) R.drawable.ic_chat_filled else R.drawable.ic_chat_outlined, "聊天",
-//            if (selected == 0) WeComposeTheme.colors.iconCurrent else WeComposeTheme.colors.icon,
-//            Modifier.weight(1f).clickable { onSelected(0) })
-//        TabItem(if (selected == 1) R.drawable.ic_contacts_filled else R.drawable.ic_contacts_outlined, "通讯录",
-//            if (selected == 1) WeComposeTheme.colors.iconCurrent else WeComposeTheme.colors.icon,
-//            Modifier.weight(1f).clickable { onSelected(1) })
-//        TabItem(if (selected == 2) R.drawable.ic_discovery_filled else R.drawable.ic_discovery_outlined, "发现",
-//            if (selected == 2) WeComposeTheme.colors.iconCurrent else WeComposeTheme.colors.icon,
-//            Modifier.weight(1f).clickable { onSelected(2) })
-//        TabItem(if (selected == 3) R.drawable.ic_me_filled else R.drawable.ic_me_outlined, "我",
-//            if (selected == 3) WeComposeTheme.colors.iconCurrent else WeComposeTheme.colors.icon,
-//            Modifier.weight(1f).clickable { onSelected(3) })
-//    }
-//}
 
 @Composable
 fun TabItem(@DrawableRes iconRes: Int, text: String, modifier: Modifier, selected: Boolean) {
@@ -105,14 +89,7 @@ fun TabItem(@DrawableRes iconRes: Int, text: String, modifier: Modifier, selecte
         )
     }
 }
-//@Composable
-//private fun TabItem(@DrawableRes iconId: Int, title: String, tint: Color, modifier: Modifier = Modifier) {
-//    Column(modifier.padding(top = 10.dp, bottom = 6.dp),
-//        horizontalAlignment = Alignment.CenterHorizontally) {
-//        Icon(painterResource(iconId), title, Modifier.size(24.dp), tint = tint)
-//        Text(title, fontSize = 11.sp, color = tint)
-//    }
-//}
+
 
 @Preview(showBackground = true)
 @Composable
