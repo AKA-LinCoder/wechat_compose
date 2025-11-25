@@ -69,7 +69,7 @@ fun ChatList(chats: List<Chat>,onChatClick: (Chat) -> Unit) {
 @Composable
 private fun ChatListItem(chat: Chat, modifier: Modifier = Modifier) {
     Row(
-//        modifier.fillMaxWidth()
+        modifier.fillMaxWidth()
     ) {
         Image(
             painterResource(chat.friend.avatar), chat.friend.name,

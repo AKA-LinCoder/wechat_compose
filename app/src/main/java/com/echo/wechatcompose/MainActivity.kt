@@ -1,11 +1,14 @@
 package com.echo.wechatcompose
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,7 +26,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.echo.wechatcompose.ui.ChatDetailPage
+import androidx.navigation.toRoute
+import com.echo.wechatcompose.ui.ChatDetailsPage
+import com.echo.wechatcompose.ui.ChatDetails
+
 import com.echo.wechatcompose.ui.ChatList
 import com.echo.wechatcompose.ui.ContactList
 import com.echo.wechatcompose.ui.DiscoveryList
@@ -67,13 +73,18 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 NavHost(navController, Home) {
                     composable<Home>{
-
                         MainPage(viewModel){
-                            navController.navigate(ChatDetails)
+                            navController.navigate(ChatDetails(it.friend.id))
                         }
                     }
-                    composable<ChatDetails> {
-                       ChatDetailPage(viewModel)
+                    composable<ChatDetails>(
+                        enterTransition = { slideInHorizontally(initialOffsetX = {it} ) },
+                        exitTransition = { slideOutHorizontally(targetOffsetX = {it} ) },
+                    ) {
+                        ChatDetailsPage(
+                            viewModel,
+                            userId = it.toRoute<ChatDetails>().userId
+                        )
 
                     }
                 }

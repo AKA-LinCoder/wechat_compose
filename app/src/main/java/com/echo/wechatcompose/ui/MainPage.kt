@@ -21,7 +21,7 @@ fun MainPage(viewModel: WeViewModel,onOpenChat:(Chat) -> Unit){
                 page ->
             when(page) {
                 0 -> ChatList(viewModel.chats){
-
+                    onOpenChat(it)
                 }
                 1 -> ContactList(viewModel.contacts)
                 2 -> DiscoveryList()
