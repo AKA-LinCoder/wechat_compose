@@ -39,7 +39,8 @@ import com.echo.wechatcompose.ui.theme.WeComposeTheme
 @Composable
 fun ChatList(chats: List<Chat>) {
 
-    Box(Modifier.background(WeComposeTheme.colors.background).fillMaxSize()){
+    Column(Modifier.background(WeComposeTheme.colors.background).fillMaxSize()) {
+        WeTopBar("Echo")
         LazyColumn(Modifier.background(WeComposeTheme.colors.listItem)) {
             itemsIndexed(chats) { index,chat ->
                 if (index!=0){

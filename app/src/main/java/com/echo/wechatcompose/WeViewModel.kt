@@ -1,21 +1,32 @@
 package com.echo.wechatcompose
 
 
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.echo.wechatcompose.data.Chat
 import com.echo.wechatcompose.data.Msg
 import com.echo.wechatcompose.data.User
 import com.echo.wechatcompose.ui.theme.WeComposeTheme
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.stateIn
 
 class WeViewModel: ViewModel() {
 
     var theme by mutableStateOf(WeComposeTheme.Theme.Light)
-    var selectedTab by mutableIntStateOf(0)
+
+
+
+    val isLightTheme by derivedStateOf { theme == WeComposeTheme.Theme.Light }
+    //协程
+    val isLightThemeFlow = snapshotFlow { isLightTheme }
+        .stateIn(viewModelScope, SharingStarted.Lazily, true)
 
     val contacts by mutableStateOf(
         listOf(
