@@ -1,7 +1,10 @@
 package com.echo.wechatcompose.ui
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -37,7 +40,7 @@ import com.echo.wechatcompose.data.User
 import com.echo.wechatcompose.ui.theme.WeComposeTheme
 
 @Composable
-fun ChatList(chats: List<Chat>) {
+fun ChatList(chats: List<Chat>,onChatClick: (Chat) -> Unit) {
 
     Column(Modifier.background(WeComposeTheme.colors.background).fillMaxSize()) {
         WeTopBar("Echo")
@@ -50,7 +53,10 @@ fun ChatList(chats: List<Chat>) {
                         thickness = 0.8f.dp
                     )
                 }
-                ChatListItem(chat = chat)
+                ChatListItem(chat = chat, Modifier.clickable{
+                    Log.e("error","click chat")
+                    onChatClick(chat)
+                })
 
 
             }
@@ -139,5 +145,5 @@ fun ChatListPreview() {
             ) as MutableList<Msg>
         ),
     )
-    ChatList(chats = chat)
+    ChatList(chats = chat){}
 }

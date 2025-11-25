@@ -13,17 +13,21 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.echo.wechatcompose.ui.ChatDetailPage
 import com.echo.wechatcompose.ui.ChatList
 import com.echo.wechatcompose.ui.ContactList
 import com.echo.wechatcompose.ui.DiscoveryList
+import com.echo.wechatcompose.ui.MainPage
 import com.echo.wechatcompose.ui.MeList
 
 import com.echo.wechatcompose.ui.WeNavigationBar
@@ -63,25 +67,14 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 NavHost(navController, Home) {
                     composable<Home>{
-                        Column(Modifier.background(WeComposeTheme.colors.background).statusBarsPadding()) {
-                            val pageSate = rememberPagerState { 4 }
-                            HorizontalPager(pageSate, Modifier.weight(1f)) {
-                                    page ->
-                                when(page) {
-                                    0 -> ChatList(viewModel.chats)
-                                    1 -> ContactList(viewModel.contacts)
-                                    2 -> DiscoveryList()
-                                    3 -> MeList()
-                                }
 
-                            }
-                            val scope = rememberCoroutineScope ()
-                            WeNavigationBar(pageSate.currentPage) {
-                                scope.launch {
-                                    pageSate.scrollToPage(it)
-                                }
-                            }
+                        MainPage(viewModel){
+                            navController.navigate(ChatDetails)
                         }
+                    }
+                    composable<ChatDetails> {
+                       ChatDetailPage(viewModel)
+
                     }
                 }
 
