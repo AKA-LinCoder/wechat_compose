@@ -18,6 +18,9 @@ import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.echo.wechatcompose.ui.ChatList
 import com.echo.wechatcompose.ui.ContactList
 import com.echo.wechatcompose.ui.DiscoveryList
@@ -26,14 +29,18 @@ import com.echo.wechatcompose.ui.MeList
 import com.echo.wechatcompose.ui.WeNavigationBar
 import com.echo.wechatcompose.ui.theme.WeComposeTheme
 import kotlinx.coroutines.launch
+import kotlinx.serialization.Serializable
+
+@Serializable object  Home
+
+@Serializable object  ChatDetails
 
 
 class MainActivity : ComponentActivity() {
 
     val viewModel: WeViewModel by viewModels()
 
-    // 提前保存 Context 引用
-    private val mContext: MainActivity = this
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,25 +60,31 @@ class MainActivity : ComponentActivity() {
         setContent {
 //            val viewModel: WeViewModel = viewModel()
             WeComposeTheme(viewModel.theme) {
-                Column(Modifier.background(WeComposeTheme.colors.background).statusBarsPadding()) {
-                    val pageSate = rememberPagerState { 4 }
-                    HorizontalPager(pageSate, Modifier.weight(1f)) {
-                            page ->
-                        when(page) {
-                            0 -> ChatList(viewModel.chats)
-                            1 -> ContactList(viewModel.contacts)
-                            2 -> DiscoveryList()
-                            3 -> MeList()
-                        }
+                val navController = rememberNavController()
+                NavHost(navController, Home) {
+                    composable<Home>{
+                        Column(Modifier.background(WeComposeTheme.colors.background).statusBarsPadding()) {
+                            val pageSate = rememberPagerState { 4 }
+                            HorizontalPager(pageSate, Modifier.weight(1f)) {
+                                    page ->
+                                when(page) {
+                                    0 -> ChatList(viewModel.chats)
+                                    1 -> ContactList(viewModel.contacts)
+                                    2 -> DiscoveryList()
+                                    3 -> MeList()
+                                }
 
-                    }
-                    val scope = rememberCoroutineScope ()
-                    WeNavigationBar(pageSate.currentPage) {
-                       scope.launch {
-                           pageSate.scrollToPage(it)
-                       }
+                            }
+                            val scope = rememberCoroutineScope ()
+                            WeNavigationBar(pageSate.currentPage) {
+                                scope.launch {
+                                    pageSate.scrollToPage(it)
+                                }
+                            }
+                        }
                     }
                 }
+
             }
         }
     }
